@@ -1,27 +1,24 @@
 package edu.eci.arsw.math;
 
-///  <summary>
-///  An implementation of the Bailey-Borwein-Plouffe formula for calculating hexadecimal
-///  digits of pi.
-///  https://en.wikipedia.org/wiki/Bailey%E2%80%93Borwein%E2%80%93Plouffe_formula
-///  *** Translated from C# code: https://github.com/mmoroney/DigitsOfPi ***
-///  </summary>
-public class PiDigits {
+import java.util.Arrays;
 
+public class PiThread extends Thread{
+    private int start;
+    private int count;
     private static int DigitsPerSum = 8;
     private static double Epsilon = 1e-17;
 
-    public static byte[] getDigits(int start, int count, int N) {
-
+    public PiThread(int start, int count){
+        this.start = start;
+        this.count = count;
     }
-/*
-    *//**
-     * Returns a range of hexadecimal digits of pi.
-     * @param start The starting location of the range.
-     * @param count The number of digits to return
-     * @return An array containing the hexadecimal digits.
-     *//*
-    public static byte[] getDigits(int start, int count) {
+
+    public void run(){
+        this.getDigits(start, count);
+        // System.out.println(Arrays.toString(this.getDigits(start, count)));
+    }
+
+    public byte[] getDigits(int start, int count) {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
         }
@@ -56,7 +53,7 @@ public class PiDigits {
     /// <param name="m"></param>
     /// <param name="n"></param>
     /// <returns></returns>
-    private static double sum(int m, int n) {
+    private double sum(int m, int n) {
         double sum = 0;
         int d = m;
         int power = n;
@@ -87,7 +84,7 @@ public class PiDigits {
     /// <param name="p"></param>
     /// <param name="m"></param>
     /// <returns></returns>
-    private static int hexExponentModulo(int p, int m) {
+    private int hexExponentModulo(int p, int m) {
         int power = 1;
         while (power * 2 <= p) {
             power *= 2;
@@ -111,6 +108,5 @@ public class PiDigits {
         }
 
         return result;
-    }*/
-
+    }
 }
