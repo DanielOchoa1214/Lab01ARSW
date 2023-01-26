@@ -12,15 +12,22 @@ public class PiDigits {
     private static double Epsilon = 1e-17;
 
     public static byte[] getDigits(int start, int count, int N) {
-
+        int module = (count) % N;
+        int range = count / N;
+        for(int i = 0;  i < N; i++){
+            int threadStart = start + (range * i);
+            Thread piThread = new PiThread(threadStart, range);
+            piThread.start();
+        }
+        return null;
     }
-/*
-    *//**
+
+    /**
      * Returns a range of hexadecimal digits of pi.
      * @param start The starting location of the range.
      * @param count The number of digits to return
      * @return An array containing the hexadecimal digits.
-     *//*
+     */
     public static byte[] getDigits(int start, int count) {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
@@ -111,6 +118,6 @@ public class PiDigits {
         }
 
         return result;
-    }*/
+    }
 
 }

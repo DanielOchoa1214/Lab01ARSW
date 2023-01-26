@@ -14,11 +14,8 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String a[]) {
-//        System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
-//        Thread A = new PiThread(0, 10);
-//        A.start();
-//        System.out.println(bytesToHex(PiDigits.getDigits(1, 100)));
-//        System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
+        // PiDigits.getDigits(0, 10, 1);
+        PiDigits.getDigits(5, 10, 2);
     }
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
