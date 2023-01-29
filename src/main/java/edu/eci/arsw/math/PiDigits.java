@@ -32,9 +32,8 @@ public class PiDigits {
     private static void divideThreads(int count, int start, int N, ArrayList<PiThread> threads){
         int module = (count) % N;
         int range = count / N;
+        int threadStart = start;
         for(int i = 0;  i < N; i++){
-            int threadStart = start + (range * i);
-            range = count / N;
             if(module > 0){
                 range++;
                 module--;
@@ -42,6 +41,8 @@ public class PiDigits {
             PiThread piThread = new PiThread(threadStart, range);
             threads.add(piThread);
             piThread.start();
+            threadStart += range;
+            range = count / N;
         }
     }
 

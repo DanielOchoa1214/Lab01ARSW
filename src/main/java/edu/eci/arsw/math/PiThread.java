@@ -17,7 +17,6 @@ public class PiThread extends Thread{
     @Override
     public void run(){
         digits = this.getDigits(start, count);
-        System.out.println(Arrays.toString(this.getDigits(start, count)));
     }
 
     public byte[] getDigits() {
