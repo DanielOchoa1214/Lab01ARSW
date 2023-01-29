@@ -1,5 +1,8 @@
 package edu.eci.arsw.math;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 ///  <summary>
 ///  An implementation of the Bailey-Borwein-Plouffe formula for calculating hexadecimal
 ///  digits of pi.
@@ -11,15 +14,44 @@ public class PiDigits {
     private static int DigitsPerSum = 8;
     private static double Epsilon = 1e-17;
 
-    public static byte[] getDigits(int start, int count, int N) {
+    public static byte[] getDigits(int start, int count, int N) throws InterruptedException {
+        ArrayList<PiThread> threads = new ArrayList<>();
+        byte[] answer = new byte[count];
+        divideThreads(count, start, N, threads);
+        waitThreads(threads);
+        sortThreads(threads, answer);
+        return answer;
+    }
+
+    private static void waitThreads(ArrayList<PiThread> threads) throws InterruptedException {
+        for(PiThread thread : threads){
+            thread.join();
+        }
+    }
+
+    private static void divideThreads(int count, int start, int N, ArrayList<PiThread> threads){
         int module = (count) % N;
         int range = count / N;
         for(int i = 0;  i < N; i++){
             int threadStart = start + (range * i);
-            Thread piThread = new PiThread(threadStart, range);
+            range = count / N;
+            if(module > 0){
+                range++;
+                module--;
+            }
+            PiThread piThread = new PiThread(threadStart, range);
+            threads.add(piThread);
             piThread.start();
         }
-        return null;
+    }
+
+    private static void sortThreads(ArrayList<PiThread> threads, byte[] answer){
+        int offset = 0;
+        for (PiThread thread : threads) {
+            byte[] bytes = thread.getDigits();
+            System.arraycopy(bytes, 0, answer, offset, bytes.length);
+            offset += bytes.length;
+        }
     }
 
     /**

@@ -13,9 +13,9 @@ import java.util.Arrays;
  */
 public class Main {
 
-    public static void main(String a[]) {
-        // PiDigits.getDigits(0, 10, 1);
-        PiDigits.getDigits(5, 10, 2);
+    public static void main(String a[]) throws InterruptedException {
+        // System.out.println(bytesToHex(PiDigits.getDigits(0, 80, 2)));
+        System.out.println(bytesToHex(PiDigits.getDigits(0, 4, 3)));
     }
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();

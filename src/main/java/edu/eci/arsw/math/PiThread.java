@@ -3,8 +3,9 @@ package edu.eci.arsw.math;
 import java.util.Arrays;
 
 public class PiThread extends Thread{
-    private int start;
-    private int count;
+    private final int start;
+    private final int count;
+    private byte[] digits;
     private static int DigitsPerSum = 8;
     private static double Epsilon = 1e-17;
 
@@ -13,9 +14,14 @@ public class PiThread extends Thread{
         this.count = count;
     }
 
+    @Override
     public void run(){
-        // this.getDigits(start, count);
+        digits = this.getDigits(start, count);
         System.out.println(Arrays.toString(this.getDigits(start, count)));
+    }
+
+    public byte[] getDigits() {
+        return digits;
     }
 
     public byte[] getDigits(int start, int count) {
